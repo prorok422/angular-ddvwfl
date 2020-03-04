@@ -1,0 +1,83 @@
+<mat-slide-toggle class="example-margin"
+  [(ngModel)]="checked"
+  [color]="color"
+  (change)="changed()">
+</mat-slide-toggle>
+
+<div [formGroup]="form">
+  <mat-form-field class="locationDate">
+    <input formControlName="regionName" type="text" aria-label="Number" placeholder="Region" matInput
+      [matAutocomplete]="region"
+      (blur)="onTouched()"
+      [readonly]="checked">
+
+    <mat-autocomplete #region="matAutocomplete" 
+      (optionSelected)="selectedLocation($event)">
+      <mat-option *ngFor="let region of regions" 
+      [value]="region">
+        {{region.regionName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="locationDate">
+    <input formControlName="municipalityName" type="text" aria-label="Number"  placeholder="Municipality" matInput 
+      [matAutocomplete]="municipality"
+      (blur)="onTouched()"
+      [readonly]="checked || this.form.value.regionId < 1">
+
+    <mat-autocomplete #municipality="matAutocomplete" 
+      (optionSelected)="selectedLocation($event)">
+      <mat-option *ngFor="let municipality of municipalities" 
+      [value]="municipality">
+        {{municipality.municipalityName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="locationDate" *ngIf="!checked">
+    <input formControlName="settlementName" type="text" placeholder="Settlement" aria-label="Number" matInput
+      [matAutocomplete]="settlement"
+      (blur)="onTouched()"
+      [readonly]="checked || this.form.value.municipalityId < 1">
+
+  <mat-autocomplete #settlement="matAutocomplete" 
+    (optionSelected)="selectedLocation($event)">
+      <mat-option *ngFor="let settlement of settlements" 
+      [value]="settlement">
+        {{settlement.settlementName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="!checked">
+    <input formControlName="description" type="text" placeholder="Address" aria-label="Number" matInput
+      (keyup)="getAddress(this.form.value.regionId,this.form.value.municipalityId, this.form.value.settlementId,$event.target.value)"
+      [matAutocomplete]="address"
+      (blur)="onTouched()"
+      [readonly]="checked || this.form.value.settlementId < 1">
+
+    <mat-autocomplete #address="matAutocomplete" panelWidth="800" 
+      (optionSelected)="selectedLocation($event)">
+      <mat-option *ngFor="let address of addresses" 
+      [value]="address">
+        {{address.description}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field [color]="accent" *ngIf="checked">
+      <input formControlName="description" type="text" placeholder="Station" aria-label="Number" matInput
+        [matAutocomplete]="address"
+        (blur)="onTouched()">
+  
+      <mat-autocomplete #address="matAutocomplete" panelWidth="800" 
+        (optionSelected)="selectedLocation($event)">
+        <mat-option *ngFor="let address of addresses" 
+        [value]="address">
+          {{address.description}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+</div>
+{{ form?.value | json }}

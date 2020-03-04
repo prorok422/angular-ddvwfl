@@ -1,0 +1,24 @@
+.locationCards{
+    margin-top: 2px;
+    /* border-width: 1px;
+    border-style: solid;
+    border-color: #a3a3a3; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px
+  }
+
+  .locationDate {
+    max-width: 200px;
+  }
+
+  /* ::ng-deep .mat-autocomplete-panel.extended {
+    width: 1000px !important;
+    max-width: 1000px !important;
+  } */
+
+  .locationDate mat-form-field {
+    border-top: 0 solid transparent !important;
+  }

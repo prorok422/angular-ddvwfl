@@ -1,0 +1,31 @@
+<mat-card style="background: #EAE7DC">
+	CVA-FORM-ARRAY
+	<div style="color: red">
+		{{ form?.value | json }}
+	</div>
+	<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" novalidate>
+		<mat-card *ngFor="let route of form.controls; let routeIndex = index; let routeLast = last;" style="background: #D8C3A5; margin-bottom: 5px;">
+			<div style="display: flex">
+				<h3 mat-dialog-title>
+				 CVA-FORM {{routeIndex + 1}}
+				</h3>
+				<span style="flex: 1 1 auto"></span>
+      <button (click)="deleteRoute(routeIndex)" mat-raised-button color="primary">
+          cancel
+      </button>
+    </div>
+    <app-cva-form [formControl]="route" (blur)="onTouched()"></app-cva-form>
+    <button (click)="addRoutes()" *ngIf="routeLast" mat-raised-button 
+      color="primary">
+     add_location
+    </button>
+  </mat-card>
+
+  <div *ngIf="!form.controls.length" style="display: flex; justify-content: baseline; align-content: center;">
+      <span style="flex: 1 1 auto"></span>
+      <button (click)="addRoutes()" mat-raised-button color="primary">add_location
+      </button>
+      <span style="flex: 1 1 auto"></span>
+    </div>
+</form>
+</mat-card>

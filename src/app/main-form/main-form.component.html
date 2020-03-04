@@ -1,0 +1,5 @@
+<mat-card [formGroup]="requestForm" style="background: #8E8D8A">
+  <h1>MAIN FORM</h1>
+  {{ requestForm?.value | json }}
+<app-cva-form-array formControlName="routes"></app-cva-form-array>
+</mat-card>
